@@ -1,4 +1,4 @@
-import random 
+simport random 
 
 temperatures = []
 for i in range(7):
