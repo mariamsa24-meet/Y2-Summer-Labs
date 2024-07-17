@@ -1,20 +1,33 @@
-from flask import Flask, render_template
-import random
-app=Flask(__name__)
+from flask import Flask, render_template, request, redirect, url_for
 
-@app.route('/')
-def hello():
-	return render_template("home.html")
+app = Flask(__name__)
 
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    if request.method == 'GET':
+        return render_template('home.html')
+    elif request.method == 'POST':
+        birthmonth = request.form['birthm']
+        return redirect(url_for('fortune', monthb=birthmonth))
 
-@app.route('/fortune')
-def fortune():
-	fortune_list=["Happiness is not by chance its by choice",
-"live is short and it is here to be lived","none but ourselves can free out minds","search for soul in everything",
-"trust the magic of new beginnings","your patience is your power","everyday is a second chance", "i exist as i am",
-"enjoy life ","be happy"]
-	lol=random.choice(fortune_list)
-	return render_template("fortune.html", lol=lol)
+@app.route('/fortune/<monthb>')
+def fortune(monthb):
+    list_for = [
+        "In dreams and in love there are no impossibilities.",
+        "Love is like wildflowers…it is often found in the most unlikely places.",
+        "The one you love is closer than you think.",
+        "Paradise is always where love dwells.",
+        "Help! I'm being held prisoner in a fortune cookie factory.",
+        "Life is what happens to you while you are busy making other plans.",
+        "Borrow money from a pessimist. They don't expect it back.",
+        "He who throws dirt is losing ground.",
+        "A closed mouth gathers no feet."
+    ]
+    length = len(monthb)
+    if 0 < length <= 9:
+        return render_template("fortune.html", for_b=list_for[length - 1])
+    else:
+        return render_template('home.html')
 
-if __name__ == "__main__":  # Makes sure this is the main process
-	app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True, port=5001)
