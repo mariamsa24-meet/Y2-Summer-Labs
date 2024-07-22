@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Display</title>
+</head>
+<body>
+
+	<h1>quotes</h1>
+	{%for quote in quotes%}
+	<h2>{{quote}}</h2>
+	{%endfor%}
+	<form action="{{url_for('home')}}" method = "GET">
+		<input type="submit" value="home">
+	</form>
+
+
+
+
+</body>
