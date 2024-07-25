@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Save Recipe</title>
+</head>
+<body>
+    <h1>Saved Recipe Details</h1>
+
+    <script>
+        // Function to parse query parameters from URL
+        function getQueryParams() {
+            var params = {};
+            var queryString = window.location.search.substring(1);
+            var pairs = queryString.split('&');
+            for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i].split('=');
+                params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+            }
+            return params;
+        }
+
+        // Retrieve query parameters
+        var queryParams = getQueryParams();
+
+        // Display recipe details
+        if (queryParams.title && queryParams.ingredients) {
+            document.write('<h2>Title: ' + queryParams.title + '</h2>');
+            var ingredients = queryParams.ingredients.split(',');
+            document.write('<p>Ingredients:</p><ul>');
+            ingredients.forEach(function(ingredient) {
+                document.write('<li>' + ingredient + '</li>');
+            });
+            document.write('</ul>');
+        } else {
+            document.write('<p>No recipe details found.</p>');
+        }
+    </script>
+</body>
+</html>

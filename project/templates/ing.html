@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Bake Bless</title>
+    <style>
+        /* Style for the button container */
+        .button-container {
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        function showInputOptions(type) {
+            var inputContainer = document.getElementById('input-options');
+            var selectedFlavorContainer = document.getElementById('selected-flavor');
+
+            selectedFlavorContainer.innerHTML = '';
+
+            if (inputContainer.style.display === 'none') {
+                inputContainer.style.display = 'block';
+            }
+
+            if (type === '1 person') {
+                selectedFlavorContainer.innerHTML = '<p>recipe options for 1 person:</p>';
+            } else if (type === 'group of ppl') {
+                selectedFlavorContainer.innerHTML = '<p>recipe options for group of people:</p>';
+            }
+        }
+
+        // Form submission handling
+        document.getElementById('flavor-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var form = event.target;
+            var formData = new FormData(form);
+            var selectedFlavor = formData.get('flavors');
+            var selectedFlavorContainer = document.getElementById('selected-flavor');
+            selectedFlavorContainer.innerHTML = '<p>Selected Flavor: ' + selectedFlavor + '</p>';
+        });
+    </script>
+</head>
+<body>
+    <h1></h1>
+
+    <!-- Button container -->
+    <div class="button-container">
+        <button onclick="showInputOptions('1 person')">1 person</button>
+       
+    </div>
+
+    <!-- Container for input options -->
+    <div id="input-options" style="display: none;">
+        <h2>Choose a Flavor:</h2>
+        <form id="flavor-form" method="POST" action="/ing">
+            <input type="radio" name="flavors" value="chocolate"> Chocolate<br>
+            <input type="radio" name="flavors" value="Lemon"> Lemon<br>
+            <input type="radio" name="flavors" value="carrots"> Carrots<br>
+            <input type="radio" name="flavors" value="vanilla"> Vanilla<br>
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div id="selected-flavor"></div>
+
+    
+</body>
+</html>
